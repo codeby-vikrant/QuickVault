@@ -1,12 +1,29 @@
-// template
-const tintColorLight = "#2f95dc";
-
-export default {
-  light: {
-    text: "#000",
-    background: "#fff",
-    tint: tintColorLight,
-    tabIconDefault: "#ccc",
-    tabIconSelected: tintColorLight,
-  },
+const Colors = {
+  background: '#0F172A',
+  backgroundSecondary: '#1E293B',
+  card: '#1E293B',
+  cardBorder: '#334155',
+  accent: '#6366F1',
+  accentLight: '#818CF8',
+  accentDark: '#4F46E5',
+  text: '#F8FAFC',
+  textSecondary: '#94A3B8',
+  textMuted: '#64748B',
+  danger: '#EF4444',
+  success: '#10B981',
+  warning: '#F59E0B',
+  white: '#FFFFFF',
+  badgeText: '#E0E7FF',
+  badgeLink: '#DBEAFE',
+  badgePdf: '#FEE2E2',
+  badgeImage: '#D1FAE5',
+  badgeLinkBg: '#1E3A5F',
+  badgePdfBg: '#3B1F1F',
+  badgeImageBg: '#1A3B2F',
+  badgeTextBg: '#2E1065',
+  inputBg: '#0F172A',
+  inputBorder: '#334155',
+  overlay: 'rgba(0, 0, 0, 0.6)',
 };
+
+export default Colors;
