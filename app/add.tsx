@@ -101,8 +101,9 @@ export default function AddScreen() {
 
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       router.back();
-    } catch (err) {
-      Alert.alert('Error', 'Failed to save item. Please try again.');
+    } catch (err: any) {
+      console.error('Save error:', err);
+      Alert.alert('Error', err?.message || 'Failed to save item. Please try again.');
     } finally {
       setSaving(false);
     }

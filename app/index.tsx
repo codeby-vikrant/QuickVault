@@ -13,17 +13,31 @@ import { CategoryFilterBar } from '@/components/CategoryFilter';
 import { EmptyState } from '@/components/EmptyState';
 import { VaultItem } from '@/lib/types';
 
+function ListHeader() {
+  const insets = useSafeAreaInsets();
+  const { items, searchQuery, setSearchQuery, categoryFilter, setCategoryFilter } = useVault();
+
+  return (
+    <View>
+      <View style={[styles.header, { paddingTop: insets.top + (Platform.OS === 'web' ? 67 : 16) }]}>
+        <View>
+          <Text style={styles.headerTitle}>QuickVault</Text>
+          <Text style={styles.headerSubtitle}>{items.length} item{items.length !== 1 ? 's' : ''} stored</Text>
+        </View>
+      </View>
+      <SearchBar value={searchQuery} onChangeText={setSearchQuery} />
+      <CategoryFilterBar selected={categoryFilter} onChange={setCategoryFilter} />
+    </View>
+  );
+}
+
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const {
     filteredItems,
     loading,
     searchQuery,
-    setSearchQuery,
-    categoryFilter,
-    setCategoryFilter,
     loadItems,
-    items,
   } = useVault();
   const hasLoaded = useRef(false);
 
@@ -47,19 +61,6 @@ export default function HomeScreen() {
   ), [handleCardPress]);
 
   const keyExtractor = useCallback((item: VaultItem) => item.id, []);
-
-  const ListHeader = useCallback(() => (
-    <View>
-      <View style={[styles.header, { paddingTop: insets.top + (Platform.OS === 'web' ? 67 : 16) }]}>
-        <View>
-          <Text style={styles.headerTitle}>QuickVault</Text>
-          <Text style={styles.headerSubtitle}>{items.length} item{items.length !== 1 ? 's' : ''} stored</Text>
-        </View>
-      </View>
-      <SearchBar value={searchQuery} onChangeText={setSearchQuery} />
-      <CategoryFilterBar selected={categoryFilter} onChange={setCategoryFilter} />
-    </View>
-  ), [insets.top, items.length, searchQuery, setSearchQuery, categoryFilter, setCategoryFilter]);
 
   return (
     <View style={styles.container}>

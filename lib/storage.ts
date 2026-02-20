@@ -1,19 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as FileSystem from 'expo-file-system';
 import * as Crypto from 'expo-crypto';
+import { Platform } from 'react-native';
 import { VaultItem } from './types';
 
 const ITEMS_KEY = '@quickvault_items';
 const PIN_KEY = '@quickvault_pin';
-
-const VAULT_DIR = `${FileSystem.documentDirectory}vault/`;
-
-async function ensureVaultDir() {
-  const dirInfo = await FileSystem.getInfoAsync(VAULT_DIR);
-  if (!dirInfo.exists) {
-    await FileSystem.makeDirectoryAsync(VAULT_DIR, { intermediates: true });
-  }
-}
 
 export async function getAllItems(): Promise<VaultItem[]> {
   const raw = await AsyncStorage.getItem(ITEMS_KEY);
@@ -49,8 +40,9 @@ export async function updateItem(id: string, updates: Partial<VaultItem>): Promi
 export async function deleteItem(id: string): Promise<void> {
   const items = await getAllItems();
   const item = items.find(i => i.id === id);
-  if (item?.fileUri) {
+  if (item?.fileUri && Platform.OS !== 'web') {
     try {
+      const FileSystem = await import('expo-file-system/legacy');
       const info = await FileSystem.getInfoAsync(item.fileUri);
       if (info.exists) {
         await FileSystem.deleteAsync(item.fileUri);
@@ -62,7 +54,18 @@ export async function deleteItem(id: string): Promise<void> {
 }
 
 export async function copyFileToVault(sourceUri: string, fileName: string): Promise<string> {
-  await ensureVaultDir();
+  if (Platform.OS === 'web') {
+    return sourceUri;
+  }
+
+  const FileSystem = await import('expo-file-system/legacy');
+  const VAULT_DIR = `${FileSystem.documentDirectory}vault/`;
+
+  const dirInfo = await FileSystem.getInfoAsync(VAULT_DIR);
+  if (!dirInfo.exists) {
+    await FileSystem.makeDirectoryAsync(VAULT_DIR, { intermediates: true });
+  }
+
   const ext = fileName.split('.').pop() || '';
   const uniqueName = `${Crypto.randomUUID()}.${ext}`;
   const destUri = `${VAULT_DIR}${uniqueName}`;
