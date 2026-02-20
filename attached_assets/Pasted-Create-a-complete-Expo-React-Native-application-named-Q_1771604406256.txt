@@ -1,0 +1,122 @@
+Create a complete Expo React Native application named "QuickVault".
+
+This app is a personal offline productivity vault to store:
+- Links (portfolio, LinkedIn, GitHub)
+- Text snippets (reusable answers for job forms)
+- PDFs (resume, Aadhaar, certificates)
+- Images
+- General files
+
+IMPORTANT REQUIREMENTS:
+
+1. Use Expo (latest version).
+2. Use React Native functional components only.
+3. Use React Navigation (Stack Navigator).
+4. Use TypeScript (strict mode enabled).
+5. Use AsyncStorage for metadata.
+6. Use expo-file-system for file storage.
+7. Use expo-document-picker for picking PDFs/files.
+8. Use expo-image-picker for images.
+9. Use expo-local-authentication for biometric lock.
+10. Use a clean folder structure.
+11. Use a modern, beautiful, smooth, responsive UI.
+12. Use a minimal dark theme with soft shadows and rounded cards.
+13. Use FlatList for performance.
+14. Implement smooth animations using Reanimated or LayoutAnimation.
+15. No placeholder logic — all features must work.
+
+APP FEATURES:
+
+🔐 1. Authentication Screen
+- Biometric authentication required before accessing the app.
+- Fallback PIN input if biometric unavailable.
+
+🏠 2. Home Screen
+- Search bar at top (real-time filtering).
+- Category filters: All, Text, Links, PDFs, Images.
+- Floating Add button.
+- Display items in beautiful cards.
+- Each card shows:
+  - Title
+  - Type badge
+  - Short preview
+  - Date created
+
+➕ 3. Add Item Screen
+- Select type: Text / Link / PDF / Image
+- Dynamic form based on type
+- Title field required
+- Tags optional
+- Save button
+
+📄 4. Detail Screen
+- Show full content
+- Copy button for text
+- Open link button
+- Open PDF viewer
+- Preview image
+- Share option
+- Edit and Delete buttons
+
+🔎 5. Search
+- Real-time search across:
+  - Title
+  - Tags
+  - Content
+- Case insensitive
+
+📂 6. File Handling
+- Copy selected files into app internal directory.
+- Store file path in AsyncStorage.
+- Ensure files persist offline.
+
+🎨 UI REQUIREMENTS:
+
+- Use consistent spacing (8px grid).
+- Rounded cards (16px).
+- Soft shadow.
+- Smooth transitions between screens.
+- Dark theme (#0F172A background).
+- Accent color (#6366F1).
+- Responsive layout for different screen sizes.
+
+🗂 Folder Structure:
+
+/src
+  /components
+  /screens
+  /navigation
+  /hooks
+  /utils
+  /constants
+  /types
+
+Use proper separation of concerns.
+
+🧠 Performance:
+- Use memoization where needed.
+- Use optimized FlatList.
+- Avoid unnecessary re-renders.
+
+🧾 Data Model:
+Each item:
+{
+  id: string;
+  title: string;
+  type: 'text' | 'link' | 'pdf' | 'image';
+  content: string;
+  fileUri?: string;
+  tags?: string[];
+  createdAt: number;
+}
+
+Provide:
+- All files with proper folder paths.
+- package.json dependencies.
+- Clear instructions to run the app.
+- No missing imports.
+- No deprecated APIs.
+- No pseudo code.
+- Production-ready code only.
+
+Make sure the app runs without errors in Expo Go.
